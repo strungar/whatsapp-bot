@@ -7,6 +7,8 @@ from selenium.webdriver.support.relative_locator import locate_with
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException
 from datetime import datetime
 from random import random
+from urllib3.exceptions import MaxRetryError
+from sys import exit
 import time, threading, re, traceback
 import commands
 
@@ -65,7 +67,7 @@ def bot(lock, driver=None, names=[]):
       except ElementNotInteractableException:
         break
       except NoSuchElementException:
-        print(".")
+        print(".",end='')
         time.sleep(.5)
     #print("bot: %s found" % (person,))
     try:
@@ -194,5 +196,9 @@ def main(lock, driver=None, names=[]):
   while True:
     try:
       bot(lock,driver,names)
+    except KeyboardInterrupt:
+      exit(1)
+    except MaxRetryError:
+      exit(1)
     except:
       traceback.print_exc()
