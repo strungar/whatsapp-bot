@@ -11,9 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build Docker Image
-        run: docker build -t builder:latest builder-image
-      - name: Upload Docker Image Artifact
-        uses: ishworkh/container-image-artifact-upload@v1.0.0
+      - uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
-          image: builder:latest
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Build Docker Image
+#        run: docker build -t builder:latest builder-image
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: builder-image
+          push: true
+          tags: ghcr.io/strungar/pywinbuilder:latest
