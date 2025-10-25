@@ -1,0 +1,15 @@
+name: create and store python executable bundle
+
+on:
+  push:
+    paths-ignore:
+      - 'builder-image/**'
+      - '.github/workflows/builder.yaml'
+
+jobs:
+  build-and-upload:
+    runs-on: ghcr.io/strungar/pywinbuilder:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build windows python bundle
+        run: main.py
