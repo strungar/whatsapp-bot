@@ -17,4 +17,3 @@ jobs:
         uses: ishworkh/container-image-artifact-upload@v1.0.0
         with:
           image: builder:latest
-          name: builder-image-artifact
