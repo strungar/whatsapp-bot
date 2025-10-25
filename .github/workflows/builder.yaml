@@ -1,0 +1,20 @@
+name: create and store builder docker image
+
+on:
+  push:
+    paths:
+      - 'builder-image/**'
+      - '.github/workflows/builder.yaml'
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker Image
+        run: docker build -t builder:latest builder-image
+      - name: Upload Docker Image Artifact
+        uses: ishworkh/container-image-artifact-upload@v1.0.0
+        with:
+          image: builder:latest
+          name: builder-image-artifact
