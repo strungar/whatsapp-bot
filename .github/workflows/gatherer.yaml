@@ -8,7 +8,9 @@ on:
 
 jobs:
   build-and-upload:
-    runs-on: ghcr.io/strungar/pywinbuilder:latest
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/strungar/pywinbuilder:latest
     steps:
       - uses: actions/checkout@v4
       - name: Build windows python bundle
