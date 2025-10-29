@@ -2,7 +2,7 @@
 set file=%1
 if %file%.==. goto noparam
 
-if exist ".env\" (
+if exist ".env" (
 python -m virtualenv .env
 call .env/Scripts/activate.bat
 @echo on
